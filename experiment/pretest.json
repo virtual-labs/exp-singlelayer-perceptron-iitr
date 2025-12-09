@@ -1,39 +1,64 @@
 {
-  "version": 2.0,
-  "questions": [
-    {
-      "question": "This is a Sample Question 1?",
-      "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+  "content": {
+    "title": "To Study and Implement Single Layer Perceptron for Binary Classification",
+    "section": "Pre-Test",
+    "questions": [
+      {
+        "id": "q1",
+        "question": "The single-layer perceptron is a type of:",
+        "options": [
+          "a. Supervised learning algorithm",
+          "b. Unsupervised learning algorithm",
+          "c. Reinforcement learning algorithm",
+          "d. None of the above"
+        ],
+        "answer": "a"
       },
-      "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+      {
+        "id": "q2",
+        "question": "In a single-layer perceptron, the input and output layers are connected by:",
+        "options": [
+          "a. Synapses",
+          "b. Neurons",
+          "c. Weights",
+          "d. Activation functions"
+        ],
+        "answer": "c"
       },
-      "correctAnswer": "a",
-      "difficulty": "beginner"
-    },
-    {
-      "question": "This is a Sample Question 2?",
-      "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+      {
+        "id": "q3",
+        "question": "The activation function used in a single-layer perceptron is typically:",
+        "options": [
+          "a. Sigmoid function",
+          "b. Rectified Linear Unit (ReLU)",
+          "c. Hyperbolic tangent (tanh) function",
+          "d. Step function"
+        ],
+        "answer": "d"
       },
-      "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+      {
+        "id": "q4",
+        "question": "The single-layer perceptron can be used for:",
+        "options": [
+          "a. Classification problems",
+          "b. Regression problems",
+          "c. Clustering problems",
+          "d. All of the above"
+        ],
+        "answer": "a"
       },
-      "correctAnswer": "c",
-      "difficulty": "beginner"
-    }
-  ]
+      {
+        "id": "q5",
+        "question": "The single-layer perceptron can only learn linearly separable patterns because:",
+        "options": [
+          "a. It uses a linear activation function",
+          "b. It lacks hidden layers for complex feature representations",
+          "c. It cannot handle non-linear relationships",
+          "d. Both b) and c)"
+        ],
+        "answer": "d"
+      }
+    ]
+  }
 }
+
