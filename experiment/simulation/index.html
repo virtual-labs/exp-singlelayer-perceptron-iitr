@@ -1,13 +1,733 @@
 <!DOCTYPE html>
-<html>
-<head>
-	<!-- Add CSS at the head of HTML file -->
-    <link rel="stylesheet" href="./css/main.css">
-</head>
-<body>
-		<!-- Your code goes here-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  </head>
+  <body>
 
-	<!-- Add JS at the bottom of HTML file --> 
-        <script src="./js/main.js"></script>
-</body>
+    <div class="container" id="containerx`">
+      <div id="myModal" style="height: 640px; padding-top: 0px" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">×</span>
+                <h2 style="text-align: left;">Instructions</h2>
+            </div>
+            <div class="modal-body">
+                <p>
+                <ol type="1" style="font-size: 19px; text-align: justify;color:black">
+                    <li>Click on the <b>SELECT GATE</b> tab.</li>
+                    <li>Choose a gate from the dropdown menu and press the
+                      <b>SUBMIT</b> button.
+                    </li>
+                    <li>Navigate to the <b>COMPUTE</b> tab in the header and click on it.
+                    </li>
+                    <li>
+                      To initialize weight and bias values, click on the <b>INITIALIZE</b> button (random value).
+                    </li>
+                   
+                    <li>
+                      Proceed to select values for the input nodes, specifically X₁
+                      and X₂. Confirm your selections by clicking the
+                      <b>SUBMIT</b> button.
+                    </li>
+                    <li>Identify the Y<sub>in</sub> cell corresponding to the current row and click on it. Then, input the appropriate (Σ + Bias) value.
+                    </li>
+                    <li>To apply the step function, click the <b>ACTIVATE</b> button.</li>
+                    <li>
+                      Now, confirm the accuracy of the result by clicking the <b>CHECK</b> button to compare the expected value (T) with the actual value (Y).
+                    </li>
+                    <li>If T does not match Y, follow these steps; otherwise, jump to step 10:</li>
+
+                    <ol type="a">
+                      <li>Click the <b>UPDATE</b> button to adjust weights and bias value.</li>
+                      <li>Initialize the learning rate value (skip this step if already done).</li>
+                      <li>Enter the required values in the input boxes for W₁(new) and click the <b>SUBMIT</b> button.<br>
+                        <span style="color:#FF6600">Note:</span> Observe the w₁(old), w₂(old), and b(old) values from the network, and the T, Y, and x values from the table.
+                      </li>
+                      <li>Repeat the above step(c) for W₂(new) and b(new).</li>
+                    </ol>
+
+                    <li>Repeat steps 5 through 9 for the other (total = 2²) combinations of X₁ and X₂.</li>
+                    <li>Proceed by clicking the <b>NEXT</b> button to execute epochs until the predicted output is obtained for each input dataset.</li>
+                    <li>Lastly, proceed to the <b>ANALYZE</b> tab and select it. Then, plot the graph by clicking the <b>PLOT</b> button.</li>
+                  
+                  <h4 style="margin: 0px; margin-top: 8px; margin-bottom: 8px;color:#FF6600">
+                    Formulae:
+                  </h4>
+                  <ol type="i">
+                    <li>Summation :
+                      <p style="
+                      display: flex;
+                      justify-content: center;
+                      font-size: 18px;
+                      margin: 4px;
+                    ">
+                      <span>Σ = <span style="font-family: KaTeX_Math;font-style: italic;"> 
+                        w₁ . x₁ + w₂ . x₂ + ....+ wₙ . xₙ</span></span> 
+                      </p>
+                    </li>
+                    <li>
+                      Step function :
+                      <p
+                      style="
+                        display: flex;
+                        justify-content: center;
+                        font-size: 18px;
+                        margin: 4px;
+                      "
+                    >
+                    <span>Y<sub>in</sub> = Σ + Bias</span> 
+                    </p>
+                    <p
+                      style="
+                        display: flex;
+                        justify-content: center;
+                        font-size: 18px;
+                        margin: 4px;
+                      "
+                    >
+                      <span>f(y) = 1, if Y<sub>in</sub> >= 0</span>
+                    </p>
+                    <p
+                      style="
+                        display: flex;
+                        justify-content: center;
+                        font-size: 18px;
+                        margin: 4px;
+                      "
+                    >
+                    <span>f(y) = -1, if Y<sub>in</sub> < 0</span>
+                      
+                    </p>
+                    </li>
+                    <li>
+                    Weight adjustment :
+                    <p style="
+                    display: flex;
+                    justify-content: center;
+                    font-size: 18px;
+                    margin: 4px;
+                  ">
+                      Δw = η * d * x
+                    </p>
+                    </li>
+                  </ol>
+                  
+                </ol>
+                <p style="color:black"><span style="color:#FF6600;font-weight: bold;">Note : </span>Read the alerts properly.</p>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <br>
+            </div>
+        </div>
+    </div>
+     
+
+      
+      <header class="header">
+        <div style="display: flex; height: 34px">
+          <div
+            id="single-level-perceptron"
+            style="display: flex; border-right: 2px solid black; color: white;border-top-left-radius: 10px;"
+          >
+            <div
+              style="
+                font-size: 20px;
+                padding-left: 10px;
+                padding-top: 5px;
+                padding-right: 10px;
+                font-weight: bold;
+              "
+            >
+              SELECT GATE
+            </div>
+            <img id="selectimg"
+              src="images/select1.png"
+              style="margin-top: 3px; margin-right: 10px; height: 85%"
+              alt=""
+            />
+          </div>
+          <div
+            id="compute"
+            style="display: flex; border-right: 2px solid black; color: white"
+          >
+            <div
+              style="
+                font-size: 20px;
+                padding-top: 5px;
+                padding-left: 10px;
+                padding-right: 10px;
+                font-weight: bold;
+              "
+            >
+              COMPUTE
+            </div>
+            <img id="calimg"
+              src="images/calculator1.png"
+              style="margin-top: 3px; margin-right: 10px; height: 85%"
+              alt=""
+            />
+          </div>
+          <div
+            id="analyze"
+            style="display: flex; border-right: 2px solid black; color: white"
+          >
+            <div
+              style="
+                font-size: 20px;
+                padding-left: 10px;
+                padding-top: 5px;
+                padding-right: 10px;
+                font-weight: bold;
+              "
+            >
+              ANALYZE
+            </div>
+            <img id="anaimg"
+              src="images/slp-1.png"
+              style="margin-top: 3px; margin-right: 10px; height: 85%"
+              alt=""
+            />
+          </div>
+        </div>
+        <span class="header-text" id="myBtn" style="padding-top: 9px;font-weight:bold"
+          >INSTRUCTIONS</span
+        >
+      </header>
+
+      <div id="matter" style="width:80%;margin-top: 2.3in; margin-left: 1in;">
+        <center>
+            <p style="color:white;font-size: 24px;text-align: justify;">
+              This experiment introduces the basics of neural network training and demonstrates the adaptability of perceptrons in solving basic binary classification problems.
+              To start click on the <b style="color:#FF6600">SELECT GATE</b>.
+             </p>
+             
+        </center>
+        
+    </div>
+
+      <div
+        style="
+          display: none;
+          width: 96.5%;
+          margin: auto;
+          margin-top: 10px;
+          height: 35px;
+        "
+      >
+        <div
+          id="single-level-perceptron"
+          style="display: flex; border-right: 2px solid black; color: white;"
+        >
+          <div
+            style="
+              font-size: 20px;
+              padding-top: 5px;
+              padding-left: 10px;
+              padding-right: 10px;
+              cursor: pointer;
+            "
+          >
+            Select Gate
+          </div>
+          
+        </div>
+      
+      </div>
+      <div id="initial-hide">
+        <div class="sec-con">
+          <div class="network">
+            <header class="header-box" id="network-header">NETWORK</header>
+            <div
+              class="network-canva-one"
+              style="display: flex; flex-direction: row"
+            >
+              <canvas id="network-canva-one" width="500" height="240"></canvas>
+            </div>
+            <div class="network-canva-two">
+              <canvas
+                class="network-canva-two-canva"
+                width="500"
+                height="240"
+              ></canvas>
+
+            </div>
+            <div class="network-canva-three">
+              <canvas
+                id="network-canva-three"
+                width="500"
+                height="240"
+              ></canvas>
+            </div>
+          </div>
+          <div class="controls">
+            <header class="header-box">CONTROLS</header>
+            <div class="select-number">
+              <div>
+                
+                <label for="numberofinp" style="padding: 8px">
+                  <b style="font-size: 24px">Select the GATE :</b></label>
+                <select name="numberofinp" id="control-inp">
+                  <option selected hidden>NULL</option>
+                  <option value="and">AND</option>
+                  <option value="or">OR</option>
+                </select>
+                <button id="gate-selected-btn" style="position:relative;left:5px">
+                  SUBMIT
+                </button>
+              </div>
+            </div>
+            <div class="number-selected">
+              <div class="for-two-input">
+                <div style="display: flex; padding-top: 10px">
+                  <div class="controllers">
+                    <div style="display: flex">
+                      <label for="" class="labels"> &nbsp; b :&nbsp;</label>
+                      <input
+                        class="controller-inputs"
+                        id="bias"
+                        min="0"
+                        max="1"
+                        type="number"
+                        readonly
+                      />
+                    </div>
+
+                    <div>
+                      <label for="gate value" class="labels"
+                        >X<sub>1</sub> : </label
+                      >
+                      <select
+                        id="variable-one"
+                        name="gate-value"
+                        style="width: 86px; height: 28px"
+                      >
+                       
+                        <option selected hidden></option>
+                   
+                        <option class="for-and" value="-1">-1</option>
+                        <option class="for-and" value="1">1</option>
+                      </select>
+                     
+
+                      <label for="" class="labels"
+                        >&nbsp; &nbsp;w<sub>1</sub> : </label
+                      >
+                      <input
+                        class="controller-inputs weight-one-class"
+                        type="number"
+                        min="0"
+                        max="1"
+                        id="weight-one"
+                        type="text"
+                        readonly
+                      />
+                    </div>
+                    <div>
+                      <label for="" class="labels">X<sub>2</sub> : </label>
+                      <select
+                        name="gate-value"
+                        id="variable-two"
+                        style="width: 86px; height: 28px"
+                      >
+                        
+                        <option selected hidden></option>
+                     
+                        <option class="for-and" value="-1">-1</option>
+                        <option class="for-and" value="1">1</option>
+                      </select>
+                     
+
+                      <label for="" class="labels">
+                        &nbsp; &nbsp;w<sub>2</sub> : </label
+                      >
+                      <input
+                        class="controller-inputs weight-two-class"
+                        type="number"
+                        min="0"
+                        max="1"
+                        id="weight-two"
+                        type="text"
+                        readonly
+                      />
+                    </div>
+                  </div>
+                  <div class="controllers-btn" style="margin-top: 0px">
+                    <button class="btns" id="reset">RESET</button>
+                    <button class="btns" id="submit">SUBMIT</button>
+
+                    <button class="btns" id="check" disabled>CHECK</button>
+
+                    <button class="btns" id="update" disabled>UPDATE</button>
+
+                    <button class="btns" id="graph" disabled>NEXT</button>
+                  </div>
+                </div>
+
+                <div
+                  style="
+                    padding-top: 10px;
+                    padding-left: 72px;
+                    margin-top: -106px;
+                    display: flex;
+                    flex-direction: column;
+                  "
+                >
+                <button
+                class="btns"
+                style="
+                  width: 200px;
+      "
+                id="generateWeight">
+                INITIALIZE
+              </button>
+
+                  <button
+                    class="btns"
+                    id="activation"
+                    style="
+                      width: 200px;">
+                    ACTIVATE
+                  </button>
+                 
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="hollow"></div>
+          <div class="terminology">
+            <header class="header-box">TERMINOLOGY</header>
+            <div style="font-size: 0px; margin-left: 20px">
+              <p style="margin: 4px">
+                <span style="font-size: 20px;color:#FF6600"> X<sub>i</sub></span>
+                <span style="font-size: 28px;color:#FF6600"> : </span>
+                <span style="font-size: 20px"
+                  >The values corresponding to Variables i.e.
+                  <span>X<sub>1</sub> </span> , <span>X<sub>2</sub></span> , ...... <span>X<sub>n</sub></span></span
+                >
+              </p>
+              <p style="margin: 4px">
+                <span style="font-size: 20px;color:#FF6600"> W<sub>i</sub></span>
+                <span style="font-size: 28px;color:#FF6600"> : </span>
+                <span style="font-size: 20px"
+                  >The values corresponding to Weights i.e.
+                  <span>W<sub>1</sub> </span>, <span>W<sub>2</sub> </span> , ...... <span>W<sub>n</sub></span></span
+                >
+              </p>
+              <p style="margin: 4px">
+                <span style="font-size: 24px;color:#FF6600"> B</span>
+                <span style="font-size: 28px;color:#FF6600"> : </span>
+                <span style="font-size: 20px"
+                  >The values corresponding to Bias</span
+                >
+              </p>
+              <p style="margin: 4px">
+                <span style="font-size: 24px;color:#FF6600"> Σ</span>
+                <span style="font-size: 28px;color:#FF6600"> : </span>
+                <span style="font-size: 20px"
+                  >The Summation Value ( Σ = <span>x</span><sub>1</sub
+                  ><span>w</span><sub>1</sub> + <span>x</span><sub>2</sub
+                  ><span>w</span><sub>2</sub> + <span>x</span><sub>3</sub
+                  ><span>w</span><sub>3</sub> + ........ + <span>x</span><sub>n</sub
+                    ><span>w</span><sub>n</sub>)
+                </span>
+              </p>
+              
+              <p style="margin: 4px">
+                <span style="font-size: 24px;color:#FF6600">A</span>
+                <span style="font-size: 28px;color:#FF6600"> : </span>
+                <span style="font-size: 20px">The Activation Function (step function)</span>
+              </p>
+              <p style="margin: 4px">
+                <span style="font-size: 24px;color:#FF6600"> Y</span>
+                <span style="font-size: 28px;color:#FF6600"> : </span>
+                <span style="font-size: 20px">The Output</span>
+              </p>
+            </div>
+          </div>
+          <div class="sec-con-sec-row">
+            <div style="display: flex; margin-top: 6px; height: 260px">
+              <div class="observation-table">
+                <header class="header-box">
+                  OBSERVATION TABLE FOR EPOCH <span class="epochNumber"></span>
+                </header>
+                <table id="myTable" style="width: 80%; margin-top: 16px">
+                  <tr>
+                    
+                    <th style="width: 12%">S. No.</th>
+                    <th style="width: 10%">X₁</th>
+                    <th style="width: 10%">X₂</th>
+                    <th style="width: 10%">T</th>
+                    <th style="width: 10%">Y<sub>in</sub></th>
+                    <th style="width: 10%">Y</th>
+                    <th style="width: 10%">ΔW₁</th>
+                    <th style="width: 10%">ΔW₂</th>
+                    <th style="width: 10%">Δb</th>
+
+                    <th style="width: 10%">W₁</th>
+                    <th style="width: 10%">W₂</th>
+                    <th style="width: 10%">b</th>
+                  </tr>
+                </table>
+              </div>
+
+              <div class="calculation">
+                <header class="header-box">CALCULATION</header>
+                <div class="calculation-div" style="margin: 18px">
+                  <p style="font-size: 20px;color:#FF6600">
+                    <span class="calculation-header"></span>
+                    <span id="superscript"></span>
+                    <span>Row</span>
+                  </p>
+                  <div style="display: flex">
+                    <div>
+                      <div style="display: flex">
+                        <span style="font-size: 20px; display: flex">
+                          <span>W<sub>1</sub></span>
+                          <span style="width: 70px">(new) =</span>
+                        </span>
+                        <div id="new-weight-one-div">
+                          <input
+                            type="text"
+                            placeholder="w₁(old)"
+                            id="old-weight-one"
+                            style="width: 15%"
+                            title="Observe the value from the network"
+                          />
+                          <span>+</span>
+
+                          <span style="width: 6%" class="learning-rate">α</span>
+                          <span> ( </span>
+                          <input
+                          type="text"
+                          placeholder="T"
+                          name=""
+                          id="target-one"
+                          style="width: 10%"
+                          title="T(highlighted) cell of the table."
+                        />
+                        <span>-</span>
+                          <input
+                            type="text"
+                            placeholder="Y"
+                            name=""
+                            id="actual-one"
+                            style="width: 10%"
+                            title="Y(highlighted) cell of the table."
+                          />
+                          <span> ) </span>
+                          
+                          <span> * </span>
+                          <input
+                            type="text"
+                            placeholder="x₁"
+                            name=""
+                            id="input-one"
+                            style="width: 10%"
+                            title="x₁ cell of the current row."
+                          />
+                        </div>
+                        <span id="new-weight-one-value"></span>
+                      </div><br>
+                      <div style=" display: flex">
+                        <span style="font-size: 20px; display: flex">
+                          <span>W<sub>2</sub></span>
+                          <span style="width: 70px">(new) =</span>
+                        </span>
+                        <div id="new-weight-two-div">
+                          <input
+                            type="text"
+                            id="old-weight-two"
+                            placeholder="w₂(old)"
+                            style="width: 15%"
+                            title="Observe the value from the network"
+                          />
+                          <span>+</span>
+
+                          <span style="width: 6%" class="learning-rate">α</span>
+
+                          <span> ( </span>
+                          <input
+                            type="text"
+                            placeholder="T"
+                            id="target-two"
+                            name=""
+                            id=""
+                            style="width: 10%"
+                            title="T(highlighted) cell of the table."
+                          />
+
+                          <span>-</span>
+
+                          <input
+                            type="text"
+                            placeholder="Y"
+                            name=""
+                            id="actual-two"
+                            style="width: 10%"
+                            title="Y(highlighted) cell of the table."
+                          />
+                          <span> ) </span>
+
+                          <span> * </span>
+
+                          <input
+                            type="text"
+                            placeholder="x₂"
+                            name=""
+                            id="input-two"
+                            style="width: 10%"
+                            title="x₂ cell of the current row."
+                          />
+                        </div>
+                        <span id="new-weight-two-value"></span>
+                      </div><br>
+                      <div style=" display: flex">
+                        <span style="font-size: 20px; display: 'flex'"
+                          >b(new) = &nbsp;
+                        </span>
+                        <div id="new-bias-div" style="width: 200px">
+                          <input
+                            type="text"
+                            placeholder="b(old)"
+                            id="old-bias"
+                            style="width: 26%"
+                            title="observe the bias value from the network"
+                          />
+                          <span>+</span>
+
+                          <span style="width: 6%" class="learning-rate">α</span>
+                          <span> ( </span>
+                          <input
+                            type="text"
+                            placeholder="T"
+                            name=""
+                            id="target-three"
+                            style="width: 10%"
+                            title="T cell(highlighted) of the table."
+                          />
+                          <span>-</span>
+                          <input
+                            type="text"
+                            placeholder="Y"
+                            name=""
+                            id="actual-three"
+                            style="width: 10%"
+                            title="Y cell(highlighted) of the table."
+                          />
+                          <span> ) </span>
+                        </div>
+                        <span id="new-bias-value"></span>
+                      </div>
+                    </div>
+
+                    <div id="equation-btn">
+                      <button class="btns" id="calculate-new-weight" style="width:90px;padding:6px">
+                        SUBMIT
+                      </button>
+                      <br><br>
+                      <button class="btns" id="reset-input-values" style="width:90px;padding:6px" title="Resets the value in the input box.">
+                        RESET
+                      </button>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="analyze-div">
+        <div style="display: flex">
+          <div class="first-div">
+            <div class="first-div-network">
+              <div class="header-box" id="network">NETWORK</div>
+              <canvas
+                class="network-canva-analyze"
+                width="500"
+                height="240"
+              ></canvas>
+            </div>
+            <div class="observation-table-div">
+              <div class="header-box">OBSERVATION TABLE</div>
+             
+              <div style="display: flex">
+                <div
+                  id="table-container"
+                  style="width: 50%; margin-left: 13px; margin-top: 24px"
+                >
+
+                </div>
+                <div style="width: 50%; margin-left: 13px">
+                  <div class="and-gate-pic" style="margin-right: 14px">
+                    <p style="padding-left: 68px; padding-top: 32px;color:#FF6600">
+                      AND GATE
+                    </p>
+                    <img
+                      style="width: 100%; margin-top: 2px"
+                      src="images/ands.png"
+                      alt=""
+                    />
+                  </div>
+                  <div class="or-gate-pic" style="margin-top: 43px">
+                    <p style="padding-left: 80px;color:#FF6600">OR GATE</p>
+                    <img
+                      style="width: 100%; margin-left: -10px"
+                      src="images/or.png"
+                      alt=""
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="second-div">
+             
+              <div class="header-box">GRAPH</div>
+              <div style="height: 470px;border-bottom-left-radius: 10px;
+              border-bottom-right-radius: 10px;">
+                <div class="show-plot" style="border-bottom-left-radius: 10px;
+                border-bottom-right-radius: 10px;">
+                  <div id="plot" style="width: 455px;height: 468px;  border-bottom-left-radius: 10px;
+                  border-bottom-right-radius: 10px;"></div>
+                </div>
+              </div>
+
+              <!-- </div> -->
+            </div>
+            <div
+              style="
+                display: flex;
+                width: 100%;
+                justify-content: space-around;
+                margin-left: 20px;
+                margin-top: 15px;
+              "
+            >
+              <button class="btns show-graph-btn plot-btn">PLOT</button>
+              <button class="btns print-btn" onclick="window.print()">
+                PRINT
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="footer">
+        <span class="footer-text">© 2025 Virtual Labs, IIT Roorkee</span>
+      </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="js/script.js"></script>
+  </body>
 </html>
