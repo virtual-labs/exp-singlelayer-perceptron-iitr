@@ -10,5 +10,4 @@
 | :--- | :--- | :--- | :--- | :--- |
 | 1 | Dr. Jasleen Kaur | jasleenk@sgtbkhalsa.du.ac.in | Khalsa College of Engineering and Technology | Assistant Professor (Computer Science) |
 | 2 | Dr. Rajeev Kumar | rajeev.kumar@ee.iitr.ac.in	 | PEC Chandigarh | Assistant Professor |
-| 3	| Ms. Pragya Daksh | prgdaksh@gmail.com	| IIT Roorkee	| Project Associate |
  

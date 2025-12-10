@@ -1,63 +1,52 @@
-{
-  "content": {
-    "title": "To Study and Implement Single Layer Perceptron for Binary Classification",
-    "section": "Post-Test",
-    "questions": [
-      {
-        "id": "q1",
-        "question": "The single-layer perceptron can only learn linearly separable patterns because:",
-        "options": [
-          "a. It uses a linear activation function",
-          "b. It lacks hidden layers for complex feature representations",
-          "c. It cannot handle non-linear relationships",
-          "d. Both b) and c)"
-        ],
-        "answer": "d"
-      },
-      {
-        "id": "q2",
-        "question": "The single-layer perceptron algorithm can converge to a solution if:",
-        "options": [
-          "a. The data is linearly separable",
-          "b. The data is linearly non-separable",
-          "c. The learning rate is too high",
-          "d. The activation function is non-linear"
-        ],
-        "answer": "a"
-      },
-      {
-        "id": "q3",
-        "question": "The decision boundary of a single-layer perceptron is:",
-        "options": [
-          "a. Always linear",
-          "b. Always non-linear",
-          "c. Linear for linearly separable problems, non-linear otherwise",
-          "d. Non-linear for linearly separable problems, linear otherwise"
-        ],
-        "answer": "c"
-      },
-      {
-        "id": "q4",
-        "question": "How many output nodes are there in a Single Layer Perceptron designed for binary classification?",
-        "options": [
-          "a. One",
-          "b. Two",
-          "c. Depends on the input size",
-          "d. Variable"
-        ],
-        "answer": "a"
-      },
-      {
-        "id": "q5",
-        "question": "The perceptron learning rule updates the weights based on:",
-        "options": [
-          "a. The difference between the predicted output and the target output",
-          "b. The derivative of the activation function",
-          "c. The gradient of the cost function",
-          "d. The maximum likelihood estimation"
-        ],
-        "answer": "a"
-      }
-    ]
+[
+  {
+    "question": "The single-layer perceptron can only learn linearly separable patterns because:",
+    "answers": {
+      "a": "It uses a linear activation function",
+      "b": "It lacks hidden layers for complex feature representations",
+      "c": "It cannot handle non-linear relationships",
+      "d": "Both b) and c)"
+    },
+    "correctAnswer": "d"
+  },
+  {
+    "question": "The single-layer perceptron algorithm can converge to a solution if:",
+    "answers": {
+      "a": "The data is linearly separable",
+      "b": "The data is linearly non-separable",
+      "c": "The learning rate is too high",
+      "d": "The activation function is non-linear"
+    },
+    "correctAnswer": "a"
+  },
+  {
+    "question": "The decision boundary of a single-layer perceptron is:",
+    "answers": {
+      "a": "Always linear",
+      "b": "Always non-linear",
+      "c": "Linear for linearly separable problems, non-linear otherwise",
+      "d": "Non-linear for linearly separable problems, linear otherwise"
+    },
+    "correctAnswer": "c"
+  },
+  {
+    "question": "How many output nodes are there in a Single Layer Perceptron designed for binary classification?",
+    "answers": {
+      "a": "One",
+      "b": "Two",
+      "c": "Depends on the input size",
+      "d": "Variable"
+    },
+    "correctAnswer": "a"
+  },
+  {
+    "question": "The perceptron learning rule updates the weights based on:",
+    "answers": {
+      "a": "The difference between the predicted output and the target output",
+      "b": "The derivative of the activation function",
+      "c": "The gradient of the cost function",
+      "d": "The maximum likelihood estimation"
+    },
+    "correctAnswer": "a"
   }
-}
+]
