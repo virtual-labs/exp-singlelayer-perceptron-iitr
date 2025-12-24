@@ -918,7 +918,7 @@ update.addEventListener("click", () => {
       inputValidator: (value) => {
         if (!value) {
           return "You need to write something!";
-        } else if (value >0  && value <= 1) {
+        } else if (value >= 0 && value <= 1) {
 
           learningRate[0].innerHTML = Number(value).toFixed(2);
           learningRate[1].innerHTML = Number(value).toFixed(2);
@@ -1206,21 +1206,32 @@ graph.addEventListener("click", () => {
   graph.disabled = true;
 
 });
-// Predefined values (you can edit these)
+//generate
 const predefinedWeights_AND = [
-  { w1: 0.38, w2: 0.65, b: 0.57 },//0.15
-  { w1: 0.86, w2: 0.57, b: 0.3 },//0.1
-  { w1: 0.6, w2: 0.7, b: 0.27 },//0.1
-  { w1: 0.03, w2: 0.01, b: 0.05 },//0.1
-  { w1: 0.38, w2: 0.65, b: 0.57 },//0.5
+  { w1: 0.79, w2: 0.70, b: 0.09, lr: 0.12 },//3,2
+  { w1: 0.03, w2: 0.66, b: 0.05, lr: 0.10 },//2,2
+  { w1: 0.75, w2: 0.10, b: 0.10, lr: 0.08 },//3,3
+  { w1: 0.23, w2: 0.11, b: -0.55, lr: 0.10 },//4
+  { w1: 0.42, w2: 0.32, b: -0.34, lr: 0.50 },//--
+  { w1: 0.37, w2: 0.08, b: 0.33, lr: 0.12 },//2,3,3
+  { w1: 0.12, w2: 0.32, b: -0.45, lr: 0.15 },//4,2
+  { w1: 0.55, w2: 0.32, b: -0.42, lr: 0.50 },//--
+  { w1: 0.20, w2: 0.15, b: 0.45, lr: 0.20 },//1,3,2
+  { w1: 0.22, w2: 0.10, b: -0.35, lr: 0.10 }//4
 ];
 const predefinedWeights_OR = [
-  { w1: 0.79, w2: 0.7, b: 0.09 },//0.15
-  //{ w1: 0.37, w2: 0.08, b: 0.33 },//0.1
-  //{ w1: 0.28, w2: 0.56, b: 0.45 },//0.1
-  //{ w1: 0.35, w2: 0.71, b: 0.92 },//0.1
-  //{ w1: 0.2, w2: 0.15, b: 0.09 },//0.5
+  { w1: 0.79, w2: 0.70, b: 0.09, lr: 0.12 },//2,3
+  { w1: 0.37, w2: 0.08, b: 0.33, lr: 0.50 },//--
+  { w1: 0.28, w2: 0.56, b: 0.45, lr: 0.50 },//--
+  { w1: 0.03, w2: 0.66, b: 0.05, lr: 0.10 },//3
+  { w1: 0.21, w2: 0.15, b: 0.92, lr: 0.10 },//1
+  { w1: 0.08, w2: 0.77, b: 0.63, lr: 0.20 },//3,1
+  { w1: 0.06, w2: 0.75, b: 0.60, lr: 0.10 },//3
+  { w1: 0.06, w2: 0.21, b: 0.31, lr: 0.15 },//1,3,2
+  { w1: 0.20, w2: 0.15, b: 0.45, lr: 0.20 },//1,2,3
+  { w1: 0.75, w2: 0.10, b: 0.10, lr: 0.08 }//2,2
 ];
+
 //generate
 generateWeight.addEventListener("click", () => {
 
@@ -1246,10 +1257,10 @@ generateWeight.addEventListener("click", () => {
 
   }
 
-    weightOne.disabled = true;
-    weightTwo.disabled = true;
-    biasInput.disabled = true;
-    generateWeight.disabled = true;
+  weightOne.disabled = true;
+  weightTwo.disabled = true;
+  biasInput.disabled = true;
+  generateWeight.disabled = true;
 
 });
 //activation
@@ -1716,9 +1727,6 @@ function partOfAddRow() {
     activationBtn.disabled = false;
   }
 
-
-
-  // 
 
   var cell4 = row.insertCell(4);
   var guessedValue, actualSum;
