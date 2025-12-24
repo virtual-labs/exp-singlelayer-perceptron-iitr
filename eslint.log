@@ -1,0 +1,122 @@
+
+/home/runner/work/exp-singlelayer-perceptron-iitr/exp-singlelayer-perceptron-iitr/experiment/simulation/js/auto_demo.js
+  94:7  warning  'Swal' is not defined  no-undef
+
+/home/runner/work/exp-singlelayer-perceptron-iitr/exp-singlelayer-perceptron-iitr/experiment/simulation/js/script.js
+    18:5    warning  'oldWeight1' is defined but never used                                 no-unused-vars
+    18:17   warning  'oldWeight2' is defined but never used                                 no-unused-vars
+    18:29   warning  'updatedWeight1' is defined but never used                             no-unused-vars
+    18:45   warning  'updatedWeight2' is defined but never used                             no-unused-vars
+    18:61   warning  'oldBias' is defined but never used                                    no-unused-vars
+    18:70   warning  'newBias' is defined but never used                                    no-unused-vars
+    27:5    warning  'networkTab' is assigned a value but never used                        no-unused-vars
+    30:5    warning  'controlTab' is assigned a value but never used                        no-unused-vars
+    47:5    warning  'networkCanvaWithThreeBallContext' is assigned a value but never used  no-unused-vars
+    49:5    warning  'observationTableOne' is assigned a value but never used               no-unused-vars
+    50:5    warning  'observationTableTwo' is assigned a value but never used               no-unused-vars
+    51:5    warning  'observationTableThree' is assigned a value but never used             no-unused-vars
+    67:5    warning  'summantionInput' is defined but never used                            no-unused-vars
+    70:5    warning  'putInThree' is assigned a value but never used                        no-unused-vars
+    71:5    warning  'putInFour' is assigned a value but never used                         no-unused-vars
+    72:5    warning  'putInFive' is assigned a value but never used                         no-unused-vars
+    73:5    warning  'flag' is defined but never used                                       no-unused-vars
+    76:5    warning  'zero' is assigned a value but never used                              no-unused-vars
+    83:5    warning  'w0' is assigned a value but never used                                no-unused-vars
+    89:5    warning  'weightZero' is assigned a value but never used                        no-unused-vars
+   101:5    warning  'button' is assigned a value but never used                            no-unused-vars
+   102:5    warning  'btns' is assigned a value but never used                              no-unused-vars
+   138:5    warning  'multiLPCount' is assigned a value but never used                      no-unused-vars
+   169:3    warning  'Swal' is not defined                                                  no-undef
+   278:9    warning  'Plotly' is not defined                                                no-undef
+   286:15   warning  'plot' is assigned a value but never used                              no-unused-vars
+   352:9    warning  'Plotly' is not defined                                                no-undef
+   360:18   warning  'gate' is assigned a value but never used                              no-unused-vars
+   360:33   warning  'Swal' is not defined                                                  no-undef
+   401:3    warning  'i' is not defined                                                     no-undef
+   521:1    warning  'updateOne' is assigned a value but never used                         no-unused-vars
+   522:1    warning  'updateTwo' is assigned a value but never used                         no-unused-vars
+   523:1    warning  'updateThree' is assigned a value but never used                       no-unused-vars
+   524:1    warning  'updateFour' is assigned a value but never used                        no-unused-vars
+   582:9    warning  'x1' is assigned a value but never used                                no-unused-vars
+   583:9    warning  'x2' is assigned a value but never used                                no-unused-vars
+   589:9    warning  's' is assigned a value but never used                                 no-unused-vars
+   905:5    warning  'Swal' is not defined                                                  no-undef
+   987:45   warning  Empty block statement                                                  no-empty
+   994:7    warning  'yin' is assigned a value but never used                               no-unused-vars
+  1012:17   warning  Empty block statement                                                  no-empty
+  1013:62   warning  Empty block statement                                                  no-empty
+  1016:84   warning  Empty block statement                                                  no-empty
+  1017:85   warning  Empty block statement                                                  no-empty
+  1018:49   warning  Empty block statement                                                  no-empty
+  1021:50   warning  Empty block statement                                                  no-empty
+  1052:61   warning  Empty block statement                                                  no-empty
+  1093:111  warning  Empty block statement                                                  no-empty
+  1094:123  warning  Empty block statement                                                  no-empty
+  1100:112  warning  Empty block statement                                                  no-empty
+  1101:123  warning  Empty block statement                                                  no-empty
+  1107:110  warning  Empty block statement                                                  no-empty
+  1108:112  warning  Empty block statement                                                  no-empty
+  1112:94   warning  Empty block statement                                                  no-empty
+  1113:66   warning  Empty block statement                                                  no-empty
+  1122:21   warning  Empty block statement                                                  no-empty
+  1125:88   warning  Empty block statement                                                  no-empty
+  1126:89   warning  Empty block statement                                                  no-empty
+  1127:53   warning  Empty block statement                                                  no-empty
+  1131:54   warning  Empty block statement                                                  no-empty
+  1145:15   warning  Empty block statement                                                  no-empty
+  1147:75   warning  Empty block statement                                                  no-empty
+  1268:2    warning  'activeOne' is assigned a value but never used                         no-unused-vars
+  1269:4    warning  'activeTwo' is assigned a value but never used                         no-unused-vars
+  1270:4    warning  'activeThree' is assigned a value but never used                       no-unused-vars
+  1271:4    warning  'activeFour' is assigned a value but never used                        no-unused-vars
+  1301:13   warning  'b' is already defined                                                 no-redeclare
+  1307:11   warning  'Swal' is not defined                                                  no-undef
+  1323:11   warning  'Swal' is not defined                                                  no-undef
+  1340:11   warning  'Swal' is not defined                                                  no-undef
+  1361:13   warning  'row' is already defined                                               no-redeclare
+  1362:13   warning  'cells' is already defined                                             no-redeclare
+  1363:13   warning  'x1' is already defined                                                no-redeclare
+  1364:13   warning  'x2' is already defined                                                no-redeclare
+  1365:13   warning  'b' is already defined                                                 no-redeclare
+  1366:13   warning  'w1' is already defined                                                no-redeclare
+  1367:13   warning  'w2' is already defined                                                no-redeclare
+  1368:13   warning  'b' is already defined                                                 no-redeclare
+  1369:13   warning  'sum' is already defined                                               no-redeclare
+  1372:13   warning  'threshold' is already defined                                         no-redeclare
+  1374:11   warning  'Swal' is not defined                                                  no-undef
+  1390:11   warning  'Swal' is not defined                                                  no-undef
+  1406:11   warning  'Swal' is not defined                                                  no-undef
+  1427:13   warning  'row' is already defined                                               no-redeclare
+  1428:13   warning  'cells' is already defined                                             no-redeclare
+  1429:13   warning  'x1' is already defined                                                no-redeclare
+  1430:13   warning  'x2' is already defined                                                no-redeclare
+  1431:13   warning  'b' is already defined                                                 no-redeclare
+  1432:13   warning  'w1' is already defined                                                no-redeclare
+  1433:13   warning  'w2' is already defined                                                no-redeclare
+  1434:13   warning  'b' is already defined                                                 no-redeclare
+  1435:13   warning  'sum' is already defined                                               no-redeclare
+  1438:13   warning  'threshold' is already defined                                         no-redeclare
+  1440:11   warning  'Swal' is not defined                                                  no-undef
+  1456:11   warning  'Swal' is not defined                                                  no-undef
+  1472:11   warning  'Swal' is not defined                                                  no-undef
+  1493:13   warning  'row' is already defined                                               no-redeclare
+  1494:13   warning  'cells' is already defined                                             no-redeclare
+  1495:13   warning  'x1' is already defined                                                no-redeclare
+  1496:13   warning  'x2' is already defined                                                no-redeclare
+  1497:13   warning  'b' is already defined                                                 no-redeclare
+  1498:13   warning  'w1' is already defined                                                no-redeclare
+  1499:13   warning  'w2' is already defined                                                no-redeclare
+  1500:13   warning  'b' is already defined                                                 no-redeclare
+  1501:13   warning  'sum' is already defined                                               no-redeclare
+  1504:13   warning  'threshold' is already defined                                         no-redeclare
+  1506:11   warning  'Swal' is not defined                                                  no-undef
+  1522:11   warning  'Swal' is not defined                                                  no-undef
+  1538:11   warning  'Swal' is not defined                                                  no-undef
+  1610:7    warning  'row' is already defined                                               no-redeclare
+  1732:7    warning  'guessedValue' is defined but never used                               no-unused-vars
+  1732:21   warning  'actualSum' is defined but never used                                  no-unused-vars
+  1795:10   warning  'calculateSum' is defined but never used                               no-unused-vars
+  2348:10   warning  'toggleFormulaRow' is defined but never used                           no-unused-vars
+
+✖ 115 problems (0 errors, 115 warnings)
+
