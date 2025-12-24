@@ -3,7 +3,7 @@
 The perceptron is one of the simplest artificial neural network architectures, introduced by Frank Rosenblatt in 1957. It represents the simplest type of feedforward neural network, consisting of a single layer of input nodes that are fully connected to a layer of output nodes. The perceptron can learn linearly separable patterns and uses slightly different types of artificial neurons known as threshold logic units (TLU). The TLU was first introduced by McCulloch and Walter Pitts in the 1940s. A perceptron has a single layer of threshold logic units with each TLU connected to all inputs.
 
 <center>  
-<img style="mix-blend-mode: darken;" src="images\TLU.png" width="50%" alt="Threshold Logic Unit">
+<img style="mix-blend-mode: darken;" src="images\TLU.png" width="400px" alt="Threshold Logic Unit">
 <figcaption><strong>Fig.1 Threshold Logic Unit</strong></figcaption>
 </center>
 
@@ -17,7 +17,7 @@ The perceptron is one of the simplest artificial neural network architectures, i
 * <b>Weights :</b> Each input is multiplied by its corresponding weight. These weights determine the strength of the connection between the input and the perceptron.
 
 <center>  
-<img style="mix-blend-mode: darken;" src="images\wordfig1.png" width="50%" alt="Pictorial representation of Single Layer Perceptron">
+<img style="mix-blend-mode: darken;" src="images\wordfig1.png" width="400px" alt="Pictorial representation of Single Layer Perceptron">
 <figcaption><strong>Fig.2 Pictorial representation of Single Layer Perceptron</strong></figcaption>
 </center>
 </br>
@@ -46,7 +46,7 @@ f(y) = -1, if Y<sub>in</sub> < θ</b></center>
 * The perceptron algorithm adjusts the weights iteratively to minimize the error between the predicted output and the actual output.
 * The algorithm updates the weights using the delta rule, which involves calculating the difference between the predicted and actual outputs and adjusting the weights accordingly.
 <center>  
-<img style="mix-blend-mode: darken;" src="images\imgiit.png" width="50%" alt="Flow Chart of Single Layer Perceptron">
+<img style="mix-blend-mode: darken;" src="images\imgiit.png" width="400px" alt="Flow Chart of Single Layer Perceptron">
 <figcaption><strong>Fig. 3 Flow Chart of Single Layer Perceptron</strong></figcaption><br>
 </center>
 
