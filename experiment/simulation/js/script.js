@@ -3,7 +3,7 @@ let compute = document.getElementById("compute");
 let analyze = document.getElementById("analyze");
 compute.disabled = true;
 analyze.disabled = true;
-
+var learning_rate = 0;//Initialise learning rate
 compute.style.cursor = `not-allowed`;
 analyze.style.cursor = `not-allowed`;
 // analyze.style.cursor = `pointer`;
@@ -843,128 +843,54 @@ function partOfCheck() {
   check.disabled = true;
 
 }
+update.addEventListener("click", async () => {
 
-// update
-// update.addEventListener("click", () => { 
-//   lrCount = lrCount + 1;
-//   checkCount = checkCount + 1;
-//   if (lrCount == 1) {
-//     Swal.fire({
-//       title: "Initialize learning rate",
-//       input: "text",
-//       allowOutsideClick: false,
-//       confirmButtonText: "SUBMIT",
-//       inputLabel: "*Hint : It should be in between 0 and 1",
-//       customClass: {
-//         container: "swal-container",
-//         popup: "swal-popup",
-//         title: "swal-title",
-//         content: "swal-content",
-//     },
-// showCancelButton: true,
-//       inputValidator: (value) => {
-//         if (!value) {
-//           return "You need to write something!";
-//         } else if (value >= 0 && value <= 1) {
-//           learningRate[0].innerHTML = Number(value).toFixed(2);
-//           learningRate[1].innerHTML = Number(value).toFixed(2);
-//           learningRate[2].innerHTML = Number(value).toFixed(2);
+  lrCount++;
+  checkCount++;
 
-// alerts1('info','','Now, enter the required values (from the table and network) in the CALCULATION section and click the <b style="color:#FF6600">SUBMIT</b> button.')
-//           learningValue = Number(value).toFixed(2);
-//         } else {
-//           return "Please fill the float value between 0 and 1";
-//         }
-//       },
-//     });
-//   }
-//  else{
-//   alerts1('info','','Now, enter the required values (from the table and network) in the CALCULATION section and click the <b style="color:#FF6600">SUBMIT</b> button.')
-//  }
-//   if (putInOne) {
-//     table = document.getElementById("myTable");
-//     console.log("working");
-//     partOfUpdate();
-//     console.log("working two");  
-//   }
-//   if (putInTwo) {
-//     table = document.getElementById("myTable2");
-//     partOfUpdate();
+  if (lrCount === 1) {
 
-//   }
-// });
-
-
-
-update.addEventListener("click", () => {
-  lrCount = lrCount + 1;
-  checkCount = checkCount + 1;
-
-  if (lrCount == 1) {
-
-    Swal.fire({
-      title: "Initialize learning rate",
-      input: "text",
+    // 1️⃣ Learning rate popup
+    await Swal.fire({
+      title: "Learning Rate Initialized",
+      html: `<b>Learning Rate ( α ) = ${learning_rate.toFixed(2)}</b>`,
+      icon: "info",
       allowOutsideClick: false,
-      confirmButtonText: "SUBMIT",
-      inputLabel: "*Hint : It should be in between 0 and 1",
-      customClass: {
-        container: "swal-container",
-        popup: "swal-popup",
-        title: "swal-title",
-        content: "swal-content",
-      },
-
-      inputValidator: (value) => {
-        if (!value) {
-          return "You need to write something!";
-        } else if (value >= 0 && value <= 1) {
-
-          learningRate[0].innerHTML = Number(value).toFixed(2);
-          learningRate[1].innerHTML = Number(value).toFixed(2);
-          learningRate[2].innerHTML = Number(value).toFixed(2);
-          learningValue = Number(value).toFixed(2);
-
-          alerts1(
-            "info",
-            "",
-            "Now, enter the required values (from the table and network) in the CALCULATION section and click the <b style='color:#FF6600'>SUBMIT</b> button."
-          );
-
-          // ⭐ NEW ALERT YOU REQUESTED
-          alerts1(
-            "info",
-            "",
-            "Now click on <b style='color:#FF6600'>W1(old), W2(old), Bias(old)</b> to auto-fill them."
-          );
-
-        } else {
-          return "Please fill the float value between 0 and 1";
-        }
-      },
+      confirmButtonText: "OK"
     });
 
-  } else {
+    // 2️⃣ Set learning rate in UI
+    learningRate[0].innerHTML = learning_rate.toFixed(2);
+    learningRate[1].innerHTML = learning_rate.toFixed(2);
+    learningRate[2].innerHTML = learning_rate.toFixed(2);
+    learningValue = learning_rate.toFixed(2);
 
+    // 3️⃣ Instruction popup (your alerts1)
     alerts1(
-      "info",
-      "",
-      "Now, enter the required values in CALCULATION section and click <b style='color:#FF6600'>SUBMIT</b>."
+      'info',
+      '',
+      'Now, enter the required values (from the table and network) in the CALCULATION section and click the <b style="color:#FF6600">SUBMIT</b> button.'
     );
 
-    // ⭐ NEW ALERT YOU REQUESTED
-    alerts1(
-      "info",
-      "",
-      "Now enter <b>x1</b>, <b>x2</b>, <b>T</b>, <b>Y</b> values."
-    );
+    // 4️⃣ Show calculation part in SAME click
+    if (putInOne) {
+      table = document.getElementById("myTable");
+      partOfUpdate();
+    }
+
+    if (putInTwo) {
+      table = document.getElementById("myTable2");
+      partOfUpdate();
+    }
+
+    return;
   }
-
-
-
-  // -------------------------------
-  // CALL update operation
-  // -------------------------------
+  alerts1(
+      'info',
+      '',
+      'Now, enter the required values (from the table and network) in the CALCULATION section and click the <b style="color:#FF6600">SUBMIT</b> button.'
+    );
+  // Normal behavior for later clicks
   if (putInOne) {
     table = document.getElementById("myTable");
     partOfUpdate();
@@ -977,182 +903,441 @@ update.addEventListener("click", () => {
 });
 
 
-///////////
-///////
-////
-///
+
+
 
 function partOfUpdate() {
-  console.log("partOfUpdate called");
+  console.log("working thre");
   try { update.disabled = true; } catch (e) { }
+
+  console.log(rowNum);
   var row = table.rows[rowNum];
   var cells = row.cells;
-  // Read current row values
   var x1 = Number(cells[1].innerHTML);
   var x2 = Number(cells[2].innerHTML);
-  var t = Number(cells[3].innerHTML);
-  var yin = Number(cells[4].innerHTML);
-  var a = Number(cells[5].innerHTML);
-  // Current weights/bias from your inputs/state
   var w1 = Number(weightOneVal);
+
   var w2 = Number(weightTwoVal);
+
   var b = Number(biasVal);
-
-  if (t === a) {
-    console.log("T === A : skipping update for this row");
-    try {
-      cells[3].style.border = "2px solid green";
-      cells[5].style.border = "2px solid green";
-      cells[6].innerHTML = 0;
-      cells[7].innerHTML = 0;
-      cells[8].innerHTML = 0;
-      cells[9].innerHTML = w1.toFixed(2);
-      cells[10].innerHTML = w2.toFixed(2);
-      cells[11].innerHTML = b.toFixed(2);
-    } catch (e) { }
-    try { calculationDiv.style.display = "none"; } catch (e) { }
-    rowNum++;
-    if (rowNum > 4) {
-      try { graph.disabled = true; graph.style.cursor = "not-allowed"; } catch (e) { }
-      try { analyze.disabled = false; analyze.style.cursor = "pointer"; } catch (e) { }
-      try { submit.disabled = true; } catch (e) { }
-      alerts1("success", "Training Completed", "All 4 inputs processed.<br>You can now click <b>ANALYZE</b>.");
-    } else {
-      try { submit.disabled = false; } catch (e) { }
-    }
-    return;
-  }
-
-  // -------------------------------
-  // PREPARE CALCULATION PANEL (AUTO-FILL OLD VALUES)
-  // -------------------------------
+  var t = Number(cells[3].innerHTML);
+  var s = Number(cells[4].innerHTML);
+  var a = Number(cells[5].innerHTML);
+  var parentElement = document.getElementById("superscript");
+  parentElement.innerHTML = "";
   var submitNewWeight = document.querySelector("#calculate-new-weight");
+  var resetWeight = document.querySelector("#reset-input-values");
 
   var oldWeightOne = document.querySelector("#old-weight-one");
   var targetVal = document.querySelector("#target-one");
   var inputOne = document.querySelector("#input-one");
-  var actualValInput = document.querySelector("#actual-one");
-
   var oldWeightTwo = document.querySelector("#old-weight-two");
   var targetValTwo = document.querySelector("#target-two");
   var inputTwo = document.querySelector("#input-two");
-  var actualValTwo = document.querySelector("#actual-two");
-
   var oldBiasInput = document.querySelector("#old-bias");
   var targetValThree = document.querySelector("#target-three");
-  var actualValThree = document.querySelector("#actual-three");
-
   var newWeightOneDiv = document.querySelector("#new-weight-one-div");
   var newWeightOneValue = document.querySelector("#new-weight-one-value");
   var newWeightTwoDiv = document.querySelector("#new-weight-two-div");
   var newWeightTwoValue = document.querySelector("#new-weight-two-value");
   var newBiasDiv = document.querySelector("#new-bias-div");
   var newBiasValue = document.querySelector("#new-bias-value");
+  oldWeightTwo.disabled = true;
+  targetValTwo.disabled = true;
+  actualValTwo.disabled = true;
+  inputTwo.disabled = true;
+  oldBiasInput.disabled = true;
+  targetValThree.disabled = true;
+  actualValThree.disabled = true;
+  oldWeightOne.style.cursor = `pointer`;
+  targetVal.style.cursor = `pointer`;
+  actualVal.style.cursor = `pointer`;
+  inputOne.style.cursor = `pointer`;
 
-  try { calculationDiv.style.display = "block"; } catch (e) { }
+  oldWeightTwo.style.cursor = `not-allowed`;
+  targetValTwo.style.cursor = `not-allowed`;
+  actualValTwo.style.cursor = `not-allowed`;
+  inputTwo.style.cursor = `not-allowed`;
+  oldBiasInput.style.cursor = `not-allowed`;
+  targetValThree.style.cursor = `not-allowed`;
+  actualValThree.style.cursor = `not-allowed`;
 
-  // --- AUTO-FILL AND SET READONLY ---
-  try {
-    // old weights/bias
-    oldWeightOne.value = w1; oldWeightOne.readOnly = true;
-    oldWeightTwo.value = w2; oldWeightTwo.readOnly = true;
-    oldBiasInput.value = b; oldBiasInput.readOnly = true;
+  var checkWeightOne, checkWeightTwo, checkBias;
+  checkWeightOne = true;
+  checkWeightTwo = false;
+  checkBias = false;
+  console.log("working 4");
+  calculationDiv.style.display = "block";
+  console.log(calculationDiv.style.display);
+  console.log("working 5");
 
-    // target values
-    targetVal.value = t; targetVal.readOnly = true;
-    targetValTwo.value = t; targetValTwo.readOnly = true;
-    targetValThree.value = t; targetValThree.readOnly = true;
+  resetWeight.addEventListener("click", () => {
+    console.log("ok");
+    if (checkBias) {
+      oldBiasInput.value = "";
+      targetValThree.value = "";
+      actualValThree.value = "";
+      oldBiasInput.style.border = "1px solid black";
+      targetValThree.style.border = "1px solid black";
+      actualValThree.style.border = "1px solid black";
+    }
+    if (checkWeightTwo) {
+      oldWeightTwo.value = "";
+      targetValTwo.value = "";
+      actualValTwo.value = "";
+      inputTwo.value = "";
+      oldWeightTwo.style.border = "1px solid black";
+      targetValTwo.style.border = "1px solid black";
+      actualValTwo.style.border = "1px solid black";
+      inputTwo.style.border = "1px solid black";
+    }
+    if (checkWeightOne) {
+      oldWeightOne.value = "";
+      targetVal.value = "";
+      actualVal.value = "";
+      inputOne.value = "";
+      oldWeightOne.style.border = "1px solid black";
+      targetVal.style.border = "1px solid black";
+      actualVal.style.border = "1px solid black";
+      inputOne.style.border = "1px solid black";
+    }
+  });
 
-    // actual outputs
-    if (actualValInput) { actualValInput.value = a; actualValInput.readOnly = true; }
-    if (actualValTwo) { actualValTwo.value = a; actualValTwo.readOnly = true; }
-    if (actualValThree) { actualValThree.value = a; actualValThree.readOnly = true; }
+  submitNewWeight.addEventListener("click", () => {
 
-    // inputs
-    inputOne.value = x1; inputOne.readOnly = true;
-    inputTwo.value = x2; inputTwo.readOnly = true;
 
-    // Reset new-value displays
-    if (newWeightOneDiv) newWeightOneDiv.style.display = "block";
-    if (newWeightTwoDiv) newWeightTwoDiv.style.display = "block";
-    if (newBiasDiv) newBiasDiv.style.display = "block";
+    if (checkBias) {
+      if (oldBiasInput.value != b) {
+        alerts1('error', 'Wrong bias value!!', 'Kindly fill the correct bias value in the highlighted input box.');
 
-    newWeightOneValue.innerText = "—";
-    newWeightTwoValue.innerText = "—";
-    newBiasValue.innerText = "—";
-  } catch (e) { console.warn("auto-fill failed:", e); }
-
-  var step = 1;
-  var updatedW1 = w1, updatedW2 = w2, updatedB = b;
-
-  if (submitNewWeight) {
-    submitNewWeight.onclick = function handleCalc() {
-      if (step === 1) {
-        var deltaW1 = learningValue * (t - a) * x1;
-        updatedW1 = Number((w1 + deltaW1).toFixed(6));
-        try { cells[6].innerHTML = deltaW1.toFixed(2); cells[9].innerHTML = updatedW1.toFixed(2); } catch (e) { }
-        try { newWeightOneValue.innerText = updatedW1.toFixed(2); newWeightOneDiv.classList.add("step-done"); } catch (e) { }
-        step = 2; alerts1('info', '', 'W₁ updated. Now update W₂ by clicking SUBMIT again.'); return;
+        oldBiasInput.style.border = "1px solid red";
       }
-      if (step === 2) {
-        var deltaW2 = learningValue * (t - a) * x2;
-        updatedW2 = Number((w2 + deltaW2).toFixed(6));
-        try { cells[7].innerHTML = deltaW2.toFixed(2); cells[10].innerHTML = updatedW2.toFixed(2); } catch (e) { }
-        try { newWeightTwoValue.innerText = updatedW2.toFixed(2); newWeightTwoDiv.classList.add("step-done"); } catch (e) { }
-        step = 3; alerts1('info', '', 'W₂ updated. Now update bias by clicking SUBMIT again.'); return;
+      if (targetValThree.value != t) {
+        alerts1('error', 'Target value is wrong!!', 'Kindly fill the correct target value in the highlighted input box.');
+        targetValThree.style.border = "1px solid red";
       }
-      if (step === 3) {
-        var deltaB = learningValue * (t - a);
-        updatedB = Number((b + deltaB).toFixed(6));
-        try { cells[8].innerHTML = deltaB.toFixed(2); cells[11].innerHTML = updatedB.toFixed(2); } catch (e) { }
-        try { newBiasValue.innerText = updatedB.toFixed(2); newBiasDiv.classList.add("step-done"); } catch (e) { }
+      if (actualValThree.value != a) {
+        alerts1('error', 'Target value is wrong!!', 'Kindly fill the correct target value in the highlighted input box.');
+        actualValThree.style.border = "1px solid red";
+      }
 
-        var newYin = Number((x1 * updatedW1 + x2 * updatedW2 + updatedB).toFixed(6));
-        var newA = newYin >= 0 ? 1 : -1;
-        try { cells[4].innerHTML = newYin.toFixed(2); cells[5].innerHTML = newA; } catch (e) { }
-        try { calculationDiv.style.display = "none"; } catch (e) { }
+      if (targetValThree.value == t) {
+        targetValThree.style.border = "1px solid black";
+      }
+      if (actualValThree.value == a) {
+        actualValThree.style.border = "1px solid black";
+      }
+      if (oldBiasInput.value == b) {
+        oldBiasInput.style.border = "1px solid black";
+      }
+      if (oldBiasInput.value == "" || targetValThree.value == "" || actualValThree.value == "") {
+        alerts1('info', '', 'Kindly fill the values for the highlighted inputs.');
 
-        try {
-          weightOne.value = updatedW1.toFixed(2);
-          weightTwo.value = updatedW2.toFixed(2);
-          biasInput.value = updatedB.toFixed(2);
-          weightOneVal = updatedW1.toFixed(2);
-          weightTwoVal = updatedW2.toFixed(2);
-          biasVal = updatedB.toFixed(2);
-        } catch (e) { }
-
-        if (rowNum == 4) {
-          try { graph.disabled = true; graph.style.cursor = "not-allowed"; } catch (e) { }
-          try { analyze.disabled = false; analyze.style.cursor = "pointer"; } catch (e) { }
-          try { submit.disabled = true; } catch (e) { }
-          alerts1('success', 'Training Complete', 'All 4 steps completed.<br>You can now click <b>ANALYZE</b>.');
-        } else {
-          alerts1('info', '', 'Step complete. Select next input pair and click SUBMIT to proceed.');
-          try { submit.disabled = false; } catch (e) { }
+        if (targetValThree.value == "") {
+          targetValThree.style.border = "1px solid red";
         }
+        if (actualValThree.value == "") {
+          actualValThree.style.border = "1px solid red";
+        }
+        if (oldBiasInput.value == "") {
+          oldBiasInput.style.border = "1px solid red";
+        }
+      }
+      if (oldBiasInput.value == b && targetValThree.value == t && actualValThree.value == a) {
+        cells[8].innerHTML = learningValue * (t - a);
+        newBias = Number(b + learningValue * (t - a));
+        cells[11].innerHTML = newBias.toFixed(2);
+        biasInput.value = Number(newBias).toFixed(2);
+        newBiasDiv.style.display = "none";
+        newBiasValue.innerText = newBias.toFixed(2);
+        checkWeightOne = false;
 
-        rowNum++; step = 1;
+        checkWeightTwo = false;
+        checkBias = false;
+
+        oldWeightOne.value = "";
+        targetVal.value = "";
+        actualVal.value = "";
+        inputOne.value = "";
+        oldWeightTwo.value = "";
+        targetValTwo.value = "";
+        actualValTwo.value = "";
+        inputTwo.value = "";
+        oldBiasInput.value = "";
+        targetValThree.value = "";
+        actualValThree.value = "";
+        oldWeightOne.disabled = false;
+        targetVal.disabled = false;
+        actualVal.disabled = false;
+        inputOne.disabled = false;
+        oldWeightTwo.disabled = true;
+        targetValTwo.disabled = true;
+        actualValTwo.disabled = true;
+        inputTwo.disabled = true;
+        oldBiasInput.disabled = true;
+        targetValThree.disabled = true;
+        actualValThree.disabled = true;
+        oldWeightOne.style.border = "1px solid black";
+        targetVal.style.border = "1px solid black";
+        actualVal.style.border = "1px solid black";
+        inputOne.style.border = "1px solid black";
+        oldWeightTwo.style.border = "1px solid black";
+        targetValTwo.style.border = "1px solid black";
+        actualValTwo.style.border = "1px solid black";
+        inputTwo.style.border = "1px solid black";
+        oldBiasInput.style.border = "1px solid black";
+        targetValThree.style.border = "1px solid black";
+        actualValThree.style.border = "1px solid black";
+        calculationDiv.style.display = "none";
+        newWeightOneDiv.style.display = "block";
+        newWeightOneValue.innerText = "";
+        newWeightTwoDiv.style.display = "block";
+        newWeightTwoValue.innerText = "";
+        newBiasDiv.style.display = "block";
+        newBiasValue.innerText = "";
+        submit.disabled = false;
+
+        updateOne = true;
+        if (rowNum == 4) {
+          console.log(rowNum);
+          graph.disabled = false;
+          submit.disabled = true;
+          rowNum = 1;
+          alerts1('info', '', 'This epoch has been succesfully completed.<br>Now, click on <b style="color:#FF6600">NEXT</b> button to start new epoch.');
+
+        } else {
+          console.log(rowNum);
+          alerts1('info', '', 'Now, select a different combination for <b>X<sub>1</sub></b> and <b>X<sub>2</sub></b> and click on <b style="color:#FF6600">SUBMIT</b> button.');
+        }
+        rowNum = rowNum + 1;
+
+        console.log(updateOne);
         return;
       }
-    };
+    }
+    if (checkWeightTwo) {
+      if (oldWeightTwo.value != w2) {
+        alerts1('error', '', 'Kindly fill the correct inputs in the highlighted input box.');
+        oldWeightTwo.style.border = "1px solid red";
+      }
+      if (targetValTwo.value != t) {
+        alerts1('error', '', 'Kindly fill the correct inputs in the highlighted input box.');
+        targetValTwo.style.border = "1px solid red";
+      }
+      if (actualValTwo.value != a) {
+        alerts1('error', '', 'Kindly fill the correct inputs in the highlighted input box.');
+        actualValTwo.style.border = "1px solid red";
+      }
+      if (inputTwo.value != x2) {
+        alerts1('error', '', 'Kindly fill the correct inputs in the highlighted input box.');
+        inputTwo.style.border = "1px solid red";
+      }
+      if (oldWeightTwo.value == w2) {
+        oldWeightTwo.style.border = "1px solid black";
+      }
+      if (targetValTwo.value == t) {
+        targetValTwo.style.border = "1px solid black";
+      }
+      if (actualValTwo.value == a) {
+        actualValTwo.style.border = "1px solid black";
+      }
+      if (inputTwo.value == x2) {
+        inputTwo.style.border = "1px solid black";
+      }
+
+      if (
+        oldWeightTwo.value == "" ||
+        targetValTwo.value == "" ||
+        actualValTwo.value == "" ||
+        inputTwo.value == ""
+      ) {
+        alerts1('info', 'Missing Value!!', 'Please provide the necessary value in the highlighted input box.');
+        if (oldWeightTwo.value == "") {
+          oldWeightTwo.style.border = "1px solid red";
+        }
+        if (targetValTwo.value == "") {
+          targetValTwo.style.border = "1px solid red";
+        }
+        if (actualValTwo.value == "") {
+          actualValTwo.style.border = "1px solid red";
+        }
+        if (inputTwo.value == "") {
+          inputTwo.style.border = "1px solid red";
+        }
+        return;
+      }
+
+      if (
+        oldWeightTwo.value == w2 &&
+        targetValTwo.value == t &&
+        actualValTwo.value == a &&
+        inputTwo.value == x2
+      ) {
+        cells[7].innerHTML = learningValue * (t - a) * x2;
+        updatedWeight2 = Number(w2 + learningValue * (t - a) * x2);
+        cells[10].innerHTML = updatedWeight2.toFixed(2);
+        weightTwo.value = updatedWeight2.toFixed(2);
+        oldWeightTwo.disabled = true;
+        targetValTwo.disabled = true;
+        actualValTwo.disabled = true;
+        inputTwo.disabled = true;
+        oldBiasInput.style.cursor = `pointer`;
+        targetValThree.style.cursor = `pointer`;
+        actualValThree.style.cursor = `pointer`;
+        oldBiasInput.disabled = false;
+        targetValThree.disabled = false;
+        actualValThree.disabled = false;
+        checkWeightTwo = false;
+        checkBias = true;
+        newWeightTwoDiv.style.display = "none";
+        newWeightTwoValue.innerText = updatedWeight2.toFixed(2);
+        return;
+      }
+    }
+    if (checkWeightOne) {
+      if (
+        oldWeightOne.value == "" ||
+        targetVal.value == "" ||
+        actualVal.value == "" ||
+        inputOne.value == ""
+      ) {
+        alerts1('info', 'Missing value!!', 'Kindly fill the values for the highlighted inputs.');
+
+        if (oldWeightOne.value == "") {
+          oldWeightOne.style.border = "1px solid red";
+        }
+        if (targetVal.value == "") {
+          targetVal.style.border = "1px solid red";
+        }
+        if (actualVal.value == "") {
+          actualVal.style.border = "1px solid red";
+        }
+        if (inputOne.value == x1) {
+          inputOne.style.border = "1px solid black";
+        }
+        if (oldWeightOne.value == w1) {
+          oldWeightOne.style.border = "1px solid black";
+        }
+        if (targetVal.value == t) {
+          targetVal.style.border = "1px solid black";
+        }
+        if (actualVal.value == a) {
+          actualVal.style.border = "1px solid black";
+        }
+        if (inputOne.value == "") {
+          inputOne.style.border = "1px solid red";
+        }
+
+        return;
+      }
+
+      if (oldWeightOne.value != w1) {
+        alerts1('error', '', 'Kindly fill the correct inputs in the highlighted input box.');
+
+        oldWeightOne.style.border = "1px solid red";
+      }
+      if (targetVal.value != t) {
+        alerts1('error', '', 'Kindly fill the correct inputs in the highlighted input box.');
+        targetVal.style.border = "1px solid red";
+      }
+      if (actualVal.value != a) {
+        alerts1('error', '', 'Kindly fill the correct inputs in the highlighted input box.');
+        actualVal.style.border = "1px solid red";
+      }
+      if (inputOne.value != x1) {
+        alerts1('error', '', 'Kindly fill the correct inputs in the highlighted input box.');
+        inputOne.style.border = "1px solid red";
+      }
+      if (oldWeightOne.value == w1) {
+        oldWeightOne.style.border = "1px solid black";
+      }
+      if (targetVal.value == t) {
+        targetVal.style.border = "1px solid black";
+      }
+      if (actualVal.value == a) {
+        actualVal.style.border = "1px solid black";
+      }
+      if (inputOne.value == x1) {
+        inputOne.style.border = "1px solid black";
+      }
+
+      if (
+        oldWeightOne.value == w1 &&
+        targetVal.value == t &&
+        actualVal.value == a &&
+        inputOne.value == x1
+      ) {
+        cells[6].innerHTML = learningValue * (t - a) * x1;
+        updatedWeight1 = Number(w1 + learningValue * (t - a) * x1);
+        cells[9].innerHTML = updatedWeight1.toFixed(2);
+        weightOne.value = updatedWeight1.toFixed(2);
+        oldWeightTwo.disabled = false;
+        targetValTwo.disabled = false;
+        actualValTwo.disabled = false;
+        inputTwo.disabled = false;
+        oldWeightOne.disabled = true;
+        targetVal.disabled = true;
+        actualVal.disabled = true;
+        inputOne.disabled = true;
+        oldWeightOne.style.cursor = `not-allowed`;
+        targetVal.style.cursor = `not-allowed`;
+        actualVal.style.cursor = `not-allowed`;
+        inputOne.style.cursor = `not-allowed`;
+        oldWeightTwo.style.cursor = `pointer`;
+        targetValTwo.style.cursor = `pointer`;
+        actualValTwo.style.cursor = `pointer`;
+        inputTwo.style.cursor = `pointer`;
+        reDrawCanva();
+        checkWeightOne = false;
+        checkWeightTwo = true;
+        newWeightOneDiv.style.display = "none";
+        newWeightOneValue.innerText = updatedWeight1.toFixed(2);
+        return;
+      }
+    }
+
+    return;
+  });
+  if (rowNum == 1) {
+    var calHeader = document.querySelector(".calculation-header");
+    var superScript = document.createElement("sup");
+    superScript.textContent = "st";
+    var parentElement = document.getElementById("superscript");
+    parentElement.appendChild(superScript);
+    calHeader.innerText = "For " + rowNum;
   }
+  if (rowNum == 2) {
+    var calHeader = document.querySelector(".calculation-header");
+    var superScript = document.createElement("sup");
+    superScript.textContent = "nd";
+    var parentElement = document.getElementById("superscript");
+    parentElement.appendChild(superScript);
+    calHeader.innerText = "For " + rowNum;
+  }
+  if (rowNum == 3) {
+    var calHeader = document.querySelector(".calculation-header");
+    var superScript = document.createElement("sup");
+    superScript.textContent = "rd";
+    var parentElement = document.getElementById("superscript");
+    parentElement.appendChild(superScript);
+    calHeader.innerText = "For " + rowNum;
+  }
+  if (rowNum == 4) {
+    var calHeader = document.querySelector(".calculation-header");
+    var superScript = document.createElement("sup");
+    superScript.textContent = "th";
+    var parentElement = document.getElementById("superscript");
+    parentElement.appendChild(superScript);
+    calHeader.innerText = "For " + rowNum;
 
-  try {
-    var headerText = "For " + (rowNum === 1 ? "1<sup>st</sup>" :
-      rowNum === 2 ? "2<sup>nd</sup>" :
-        rowNum === 3 ? "3<sup>rd</sup>" : "4<sup>th</sup>");
-    document.querySelector(".calculation-header").innerHTML = headerText;
-  } catch (e) { }
+    graph.disabled = false;
 
-  try { check.disabled = true; activationBtn.disabled = true; } catch (e) { }
+  }
+  update.disabled = true;
+  check.disabled = true;
+  activationBtn.disabled = true;
+
 }
-
-
-
-
-//end//
-///////
-
 
 //next
 graph.addEventListener("click", () => {
@@ -1244,6 +1429,7 @@ generateWeight.addEventListener("click", () => {
     weightOne.value = selected.w1;
     weightTwo.value = selected.w2;
     biasInput.value = selected.b;
+    learning_rate = selected.lr;
   }
   else {
     // pick a random set from predefined table
@@ -1254,7 +1440,7 @@ generateWeight.addEventListener("click", () => {
     weightOne.value = selected.w1;
     weightTwo.value = selected.w2;
     biasInput.value = selected.b;
-
+    learning_rate = selected.lr;
   }
 
   weightOne.disabled = true;
@@ -1647,7 +1833,7 @@ function partOfAddRow() {
       cell3.innerHTML = "-1";
     }
   }
-  // Calcaulated functions 
+   // Calcaulated functions 
 
   //   function yin(a,w1,d,w2,b)
   //   {
@@ -1715,14 +1901,15 @@ function partOfAddRow() {
   //     });
   // }
 
-  function yin(a, w1, d, w2, b) {
+    function yin(a, w1, d, w2, b) {
     // Calculate Y(in) automatically
     let actualSum = (Number(a) * Number(w1)) + (Number(d) * Number(w2)) + Number(b);
     let yinValue = actualSum.toFixed(2);
     // Put the result inside cell4
     cell4.innerText = yinValue;
     // Show success message
-    alerts1('success', 'Y(in) Calculated!', 'Automatic calculation done.<br>Now click on <b style="color:#FF6600">ACTIVATE</b>.');
+    alerts1('success', 'Y(in) Calculated!', 'Σ + Bias = ' + yinValue + ' <br>Now click on <b style="color:#FF6600">ACTIVATE</b>.');
+
     // Enable ACTIVATE button
     activationBtn.disabled = false;
   }
@@ -2342,10 +2529,3 @@ function showAnalyzeTable() {
   tableContainer.innerHTML = generateTable(data);
 }
 
-
-
-
-function toggleFormulaRow(rowNum) {
-  const formula = document.getElementById(`formula-row-${rowNum}`);
-  formula.style.display = (formula.style.display === "none") ? "block" : "none";
-}
